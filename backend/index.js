@@ -20,7 +20,9 @@ yargs(hideBin(process.argv))
     .command('add <file>', 'Add file to repo', (yargs)=>{yargs.positional("file", {
         describe: "File to add to the staging area",
         type: "string",
-    })}, add)
+    })}, (argv)=>{
+        add(argv.file);
+    })
     .command('commit', 'Add file to repo', (yargs)=>{yargs.positional("message", {
         describe: "commit message",
         type: "string",
