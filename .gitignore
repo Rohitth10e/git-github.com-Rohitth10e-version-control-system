@@ -1,0 +1,85 @@
+########################
+# Environment variables
+########################
+.env
+.env.*
+!.env.example
+
+########################
+# Node / Backend
+########################
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+########################
+# Backend build output
+########################
+dist/
+build/
+
+########################
+# React / Frontend
+########################
+client/node_modules/
+client/build/
+client/dist/
+
+########################
+# Logs
+########################
+logs/
+*.log
+
+########################
+# OS files
+########################
+.DS_Store
+Thumbs.db
+
+########################
+# Editor / IDE
+########################
+.vscode/
+.idea/
+*.swp
+*.swo
+
+########################
+# Testing
+########################
+coverage/
+.nyc_output/
+
+########################
+# Docker
+########################
+docker-compose.override.yml
+*.pid
+
+########################
+# Kubernetes / Helm (if used)
+########################
+*.tgz
+charts/**/charts/
+charts/**/tmp/
+
+########################
+# CI/CD
+########################
+.env.ci
+.env.pipeline
+
+########################
+# MongoDB
+########################
+data/
+mongo-data/
+
+########################
+# Misc
+########################
+tmp/
+.cache/
