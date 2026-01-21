@@ -9,6 +9,7 @@ import add from './controller/terminal-actions/add.js';
 import push from './controller/terminal-actions/push.js';
 import revert from './controller/terminal-actions/revert.js';
 import commit from './controller/terminal-actions/commit.js';
+import pull from './controller/terminal-actions/pull.js';
 dotenv.config();
 
 const app = express();
@@ -25,7 +26,7 @@ yargs(hideBin(process.argv))
         type: "string",
     })}, commit)
     .command('push', 'Push commits to S3', {} ,push)
-    .command('pull', 'Pull commits from S3', {} ,pull)
+    .command('pull', 'Pull commits from S3', {} , pull)
     .command('revert', 'Add file to repo', (yargs)=>{yargs.positional("commitID", {
         describe: "Which commit to revert to",
         type: "string",
