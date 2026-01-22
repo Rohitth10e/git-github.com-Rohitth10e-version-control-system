@@ -34,7 +34,9 @@ yargs(hideBin(process.argv))
     .command('revert', 'Add file to repo', (yargs)=>{yargs.positional("commitID", {
         describe: "Which commit to revert to",
         type: "string",
-    })}, revert).help().argv;
+    })}, (argv) => {
+        commit(argv.commitID)
+    }).help().argv;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
