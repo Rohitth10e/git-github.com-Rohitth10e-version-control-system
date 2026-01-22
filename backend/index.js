@@ -23,10 +23,12 @@ yargs(hideBin(process.argv))
     })}, (argv)=>{
         add(argv.file);
     })
-    .command('commit', 'Add file to repo', (yargs)=>{yargs.positional("message", {
+    .command('commit <message>', 'commit staged files', (yargs)=>{yargs.positional("message", {
         describe: "commit message",
         type: "string",
-    })}, commit)
+    });}, (argv)=>{
+        commit(argv.message)
+    })
     .command('push', 'Push commits to S3', {} ,push)
     .command('pull', 'Pull commits from S3', {} , pull)
     .command('revert', 'Add file to repo', (yargs)=>{yargs.positional("commitID", {
