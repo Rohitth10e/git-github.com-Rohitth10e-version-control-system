@@ -1,13 +1,10 @@
 import express from 'express';
-import {registerController} from "../controller/user.controller.js";
+import {loginController, registerController} from "../controller/user.controller.js";
 
 const userRouter = express.Router();
 
 userRouter.post("/users/register", registerController);
-userRouter.post("/users/login", (req, res) => {
-    console.log("User login endpoint hit");
-    res.send("User logged in");
-});
+userRouter.post("/users/login", loginController);
 userRouter.get("/users/profile/:id", (req, res) => {
     console.log("User profile endpoint hit");
     res.send(`User profile for ID: ${req.params.id}`);

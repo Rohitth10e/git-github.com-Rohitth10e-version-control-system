@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import promisify from 'util';
+import { promisify } from 'util';
 import {s3, s3_bucket} from "../../config/aws-config.js";
 
 const readdir = promisify(fs.readdir);

@@ -1,14 +1,14 @@
-import User from './models/User.js';
+import User from '../models/usermodels.js';
 import res from "express/lib/response.js";
 import {comparePassword, hashPassword} from "../utils/bcrypt.js";
 import req from "express/lib/request.js";
 import {generateToken} from "../utils/jwt.js";
 
-async function registerController(){
-    const { email ,username, password} = req.body;
+async function registerController(req, res){
+    const { email , username, password} = req.body;
 
     if(!email || !username || !password){
-        res.status(400).send({ error: 'Email and password is required' });
+        return res.status(400).send({ error: 'Email and password is required' });
     }
 
     try{
@@ -17,13 +17,13 @@ async function registerController(){
             return res.status(200).send({ message: 'User already exists' });
         }
 
-        const hashedPassword = hashPassword(password);
+        const hashedPassword = await hashPassword(password);
 
-        const newUser = await new User({
+        await new User({
             email:email,
             username:username,
             password:hashedPassword,
-        })
+        }).save()
 
         return res.status(200).json({
             message: 'User registered successfully',
@@ -39,14 +39,14 @@ async function registerController(){
     }
 }
 
-async function loginController(){
+async function loginController(req, res){
      const { email, password } = req.body;
      if(!email || !password){
          return res.status(400).send({ error: 'Email and password is required' });
      }
 
      try {
-         const user = await User.findOne({ email:email });
+         const user = await User.findOne({ email: email });
          if(!user) {
              return res.status(400).send({ message: 'User does not exists' });
          }

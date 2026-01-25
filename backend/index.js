@@ -3,6 +3,9 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import http from 'http';
+import {Server} from 'socket.io';
+import cors from 'cors';
 import mainRouter from './routes/main.router.js';
 import { initRepo } from './controller/terminal-actions/init.js';
 import add from './controller/terminal-actions/add.js';
@@ -14,6 +17,10 @@ dotenv.config();
 
 const app = express();
 const MONGO_URI = process.env.MONGO_URI
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors({ origin: "*" }))
 
 yargs(hideBin(process.argv))
     .command('init', 'Initialize the application', {}, initRepo)
@@ -35,11 +42,8 @@ yargs(hideBin(process.argv))
         describe: "Which commit to revert to",
         type: "string",
     })}, (argv) => {
-        commit(argv.commitID)
+        revert(argv.commitID)
     }).help().argv;
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 3000;
 
@@ -55,7 +59,35 @@ async function connectToDatabase() {
         .catch((err) => console.error("Error connecting to MongoDB:", err));
 }
 
-app.listen(PORT, () => {
+const user = "test"
+function startServer(){
     connectToDatabase();
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+
+    const server = http.createServer(app)
+    const io = new Server(server, {
+        cors: {
+            origin: "*",
+            method: ["GET","POST"]
+        }
+    });
+
+    io.on("connection", (socket)=> {
+        socket.on("join-room", (userID) =>{
+            user == userID
+            console.log(user)
+            socket.join(userID)
+        })
+    })
+
+    const db = mongoose.connection;
+
+    db.once('open', async()=>{
+        console.log("CRUD Ops");
+    })
+
+    server.listen(PORT, () => {
+        console.log(`Server is running on port:${PORT}`);
+    })
+}
+
+startServer();

@@ -18,10 +18,12 @@ const userSchema = new Schema({
         required: true,
     },
     repositories: [{
+        default:[],
         type: Schema.Types.ObjectId,
         ref: 'Repository',
     }],
-    followers: [{
+    followerdUsers: [{
+        default:[],
         type: Schema.Types.ObjectId,
         ref: 'User',
     }],
