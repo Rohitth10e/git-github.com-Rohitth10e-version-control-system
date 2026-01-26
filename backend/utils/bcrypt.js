@@ -1,12 +1,11 @@
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
-function hashPassword(password){
-    const hashed = bcrypt.hash(password, 10);
-    return hashed;
+async function hashPassword(password) {
+    return bcrypt.hash(password, 10);
 }
 
-function comparePassword(hashedPassword, password){
-    return bcrypt.compare(password, hashedPassword);
+async function comparePassword(plainPassword, hashedPassword) {
+    return bcrypt.compare(plainPassword, hashedPassword);
 }
 
-export {hashPassword , comparePassword};
+export { hashPassword, comparePassword };

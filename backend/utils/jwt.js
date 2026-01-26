@@ -4,9 +4,10 @@ dotenv.config();
 
 const key = process.env.SECRET_KEY;
 
-function generateToken(email, username) {
+function generateToken(id, email, username) {
     return jwt.sign({
         data: {
+            id: id,
             email: email,
             username: username,
         }

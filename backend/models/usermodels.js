@@ -16,13 +16,14 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true,
+        // select: false,
     },
     repositories: [{
         default:[],
         type: Schema.Types.ObjectId,
         ref: 'Repository',
     }],
-    followerdUsers: [{
+    followedUsers: [{
         default:[],
         type: Schema.Types.ObjectId,
         ref: 'User',
