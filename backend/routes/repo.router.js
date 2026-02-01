@@ -1,10 +1,9 @@
 import express from 'express';
+import {createRepo} from "../controller/repo.controller.js";
 
 const repoRouter = express.Router();
 
-repoRouter.get("/repo/create/", ()=>{
-    console.log("console log test")
-})
+repoRouter.post("/repo/create", createRepo);
 repoRouter.put("/repo/update/:id", ()=>{
     console.log("console log test")
 })

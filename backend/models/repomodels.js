@@ -11,9 +11,9 @@ const repoSchema = new Schema({
     description: {
         type: String,
     },
-    content: {
+    content: [{
         type: String,
-    },
+    }],
     visibility: {
         type: Boolean
     },
