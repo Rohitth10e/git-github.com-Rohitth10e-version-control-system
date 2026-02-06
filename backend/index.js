@@ -15,7 +15,7 @@ import commit from './controller/terminal-actions/commit.js';
 import pull from './controller/terminal-actions/pull.js';
 dotenv.config();
 
-const app = express();
+export const app = express();
 const MONGO_URI = process.env.MONGO_URI
 
 app.use(express.json());
@@ -48,7 +48,7 @@ yargs(hideBin(process.argv))
 const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-    res.send("Hello, World!");
+    res.send("Server is healthy");
 });
 
 app.use("/api/v1", mainRouter);
@@ -90,4 +90,6 @@ function startServer(){
     })
 }
 
-startServer();
+if (process.env.NODE_ENV !== "test") {
+    startServer();
+}
