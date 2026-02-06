@@ -1,3 +1,7 @@
+import mongoose from "mongoose";
+
+const { Schema } = mongoose;
+
 const IssuesSchema = new Schema({
     title:{
         type: String,
@@ -23,5 +27,6 @@ const IssuesSchema = new Schema({
     }
 });
 
-const Issues = mongoose.model('Issues', IssuesSchema);
-module.exports = Issues;
+const Issue = mongoose.model('Issue', IssuesSchema);
+
+export default Issue;

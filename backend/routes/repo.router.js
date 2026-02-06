@@ -1,29 +1,31 @@
-import express from 'express';
-import {createRepo} from "../controller/repo.controller.js";
+import express from "express";
+
+import {
+    createRepo,
+    fetchRepoForCurrentUser,
+    getAllRepos,
+    getRepoById,
+    getRepoByName,
+    updateRepoById,
+    deleteRepoById,
+    toggleRepoVisibilityById,
+} from "../controller/repo.controller.js";
+
+import { authenticateUser } from "../middleware/auth.js";
 
 const repoRouter = express.Router();
 
-repoRouter.post("/repo/create", createRepo);
-repoRouter.put("/repo/update/:id", ()=>{
-    console.log("console log test")
-})
-repoRouter.delete("/repo/delete/:id", ()=>{
-    console.log("console log test")
-})
-repoRouter.get("/repo/:id", ()=>{
-    console.log("console log test")
-})
-repoRouter.patch("/repo/toggle/:id", ()=>{
-    console.log("console log test")
-})
-repoRouter.get("/repo/all/", ()=>{
-    console.log("console log test")
-});
-repoRouter.get("/repo/search/", ()=>{
-    console.log("console log test")
-});
-repoRouter.get("/repo/user/:userID", ()=>{
-    console.log("console log test")
-});
+repoRouter.post("/repo/create", authenticateUser, createRepo);
+
+repoRouter.get("/repo/getall", getAllRepos);
+repoRouter.get("/repo/user/:id", authenticateUser, fetchRepoForCurrentUser);
+
+repoRouter.get("/repo/name/:name", getRepoByName);
+repoRouter.get("/repo/:id", getRepoById);
+
+repoRouter.put("/repo/update/:id", authenticateUser, updateRepoById);
+repoRouter.patch("/repo/toggle/:id", authenticateUser, toggleRepoVisibilityById);
+
+repoRouter.delete("/repo/delete/:id", authenticateUser, deleteRepoById);
 
 export default repoRouter;

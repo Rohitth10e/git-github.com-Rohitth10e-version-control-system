@@ -10,6 +10,7 @@ function authenticateUser(req, res, next) {
     try {
         const decoded = verifyToken(token);
         req.user = decoded; // { id, username, email }
+        // user req.user?.data?. id or username or email
         // console.log(req.user);
         next();
     } catch (err) {
