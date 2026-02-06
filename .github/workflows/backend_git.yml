@@ -20,6 +20,10 @@ jobs:
       - name: Set environment variables
         run: echo "MONGO_URI=mongodb://localhost:27017/test" >> $GITHUB_ENV
 
+      - name: Install dependencies
+        working-directory: backend
+        run: npm install
+
       - name: Run tests
         working-directory: backend
         run: npm test
