@@ -1,0 +1,88 @@
+#dashboard {
+    display: grid;
+    grid-template-columns: 1fr 2.5fr 1fr;
+    gap: 30px;
+    padding: 30px;
+    color: white;
+}
+
+/* ASIDES */
+#dashboard aside {
+    background: #1f1f1f;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+#dashboard aside h3 {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+}
+
+/* MAIN SECTION */
+#dashboard main {
+    background: #1f1f1f;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+#dashboard main h2 {
+    margin-bottom: 15px;
+}
+
+/* SEARCH */
+#search {
+    margin-bottom: 20px;
+}
+
+#search input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    background: #2a2a2a;
+    color: white;
+}
+
+/* REPO LIST */
+.repo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.repo-card {
+    background: #2a2a2a;
+    padding: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.repo-card:hover {
+    background: #333;
+}
+
+.repo-card h4:first-child {
+    color: #58a6ff;
+    margin-bottom: 6px;
+}
+
+.repo-card h4:last-child {
+    font-weight: normal;
+    font-size: 14px;
+    color: #c9d1d9;
+}
+
+/* UPCOMING EVENTS */
+#dashboard aside ul {
+    list-style: none;
+    padding: 0;
+}
+
+#dashboard aside li {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #c9d1d9;
+}

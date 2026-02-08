@@ -87,7 +87,7 @@ async function fetchRepoForCurrentUser(req, res) {
         if(!id){
             return res.status(400).json({error: "id is required"});
         }
-        const repo = await Repository.find({_id:id, owner:user_id})
+        const repo = await Repository.find({ owner:id })
         if(!repo){
             return res.status(400).send({error: "repo does not exist"});
         }

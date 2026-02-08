@@ -17,18 +17,21 @@ async function registerController(req, res){
 
         const hashedPassword = await hashPassword(password);
 
-        await new User({
+        const new_user = new User({
             email:email,
             username:username,
             password:hashedPassword,
             repositories: [],
             followedUsers: [],
             starRepo: []
-        }).save()
+        })
+
+        await new_user.save();
 
         return res.status(200).json({
             message: 'User registered successfully',
             user: {
+                id: new_user._id,
                 email:email,
                 username:username,
             }
@@ -63,6 +66,11 @@ async function loginController(req, res){
          return res.status(200).json({
              message: 'User login successfull',
              token: accessToken,
+             user: {
+                 id: user._id,
+                 email: user.email,
+                 username:user.username,
+             }
          })
      } catch(err) {
          return res.status(500).send({ error: 'something went wrong' });

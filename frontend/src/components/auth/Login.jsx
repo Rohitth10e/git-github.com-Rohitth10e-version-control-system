@@ -32,7 +32,7 @@ export const Login = () => {
             });
 
             localStorage.setItem("token", res.data.token);
-            localStorage.setItem("userId", res.data.userId);
+            localStorage.setItem("userId", res.data.user?.id);
 
             setCurrentUser(res.data.userId);
             setLoading(false);
