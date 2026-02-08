@@ -36,7 +36,7 @@ Deployment steps:
 4. Built and deployed the application using Vite
 
 Live frontend URL:
-https://git-github-com-rohitth10e-versi-git-f8afb8-rohitth10es-projects.vercel.app/
+https://git-github-com-rohitth10e-versi-git-f8afb8-rohitth10es-projects.vercel.app/auth
 ## Continuous Integration
 
 GitHub Actions is used to run automated tests on every push:
