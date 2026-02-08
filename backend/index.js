@@ -18,9 +18,14 @@ dotenv.config();
 export const app = express();
 const MONGO_URI = process.env.MONGO_URI
 
+app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
+app.options("*", cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: "*" }))
 
 yargs(hideBin(process.argv))
     .command('init', 'Initialize the application', {}, initRepo)
