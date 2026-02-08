@@ -102,7 +102,7 @@ export const Issues = () => {
     const handleToggleStatus = async (issueId) => {
         if (!token) return;
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/issue/status/${issueId}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/issue/status/${issueId}`, {
                 method: "PATCH",
                 headers: { Authorization: `Bearer ${token}` },
             });

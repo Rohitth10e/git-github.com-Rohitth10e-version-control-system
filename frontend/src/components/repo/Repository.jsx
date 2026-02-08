@@ -27,7 +27,7 @@ export const Repository = () => {
         }
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/repo/create`, {
+            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/repo/create`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

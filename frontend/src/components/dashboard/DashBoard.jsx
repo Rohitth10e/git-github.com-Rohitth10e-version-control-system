@@ -17,7 +17,7 @@ export const DashBoard = () => {
 
             try {
                 const response = await fetch(
-                    `${import.meta.env.VITE_API_BASE_URL}/api/v1/repo/user/${userId}`,
+                    `${import.meta.env.VITE_API_BASE_URL}/v1/repo/user/${userId}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ export const DashBoard = () => {
 
         const fetchSuggestedRepositories = async () => {
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/repo/getall`);
+                const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/repo/getall`);
                 const data = await response.json();
                 setSuggestedRepositories(data);
                 console.log(suggestedRepositories);
