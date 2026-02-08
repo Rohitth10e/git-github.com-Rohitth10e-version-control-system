@@ -27,7 +27,7 @@ export const User = () => {
             if (userId) {
                 try {
                     const response = await axios.get(
-                        `http://localhost:3000/api/v1/users/profile/${userId}`
+                        `${import.meta.env.VITE_API_BASE_URL}/api/v1/users/profile/${userId}`
                     );
                     setUserDetails(response.data.user);
                 } catch (err) {

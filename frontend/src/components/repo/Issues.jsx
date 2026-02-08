@@ -28,10 +28,10 @@ export const Issues = () => {
             setError("");
             try {
                 const [repoRes, issuesRes] = await Promise.all([
-                    fetch(`${API_BASE}/repo/${repoId}`, {
+                    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/repo/${repoId}`, {
                         headers: token ? { Authorization: `Bearer ${token}` } : {},
                     }),
-                    fetch(`${API_BASE}/issue/repo/${repoId}`, {
+                    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/issue/repo/${repoId}`, {
                         headers: token ? { Authorization: `Bearer ${token}` } : {},
                     }),
                 ]);
@@ -69,7 +69,7 @@ export const Issues = () => {
         }
 
         try {
-            const res = await fetch(`${API_BASE}/issue/create`, {
+            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/issue/create`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -102,7 +102,7 @@ export const Issues = () => {
     const handleToggleStatus = async (issueId) => {
         if (!token) return;
         try {
-            const res = await fetch(`${API_BASE}/issue/status/${issueId}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/issue/status/${issueId}`, {
                 method: "PATCH",
                 headers: { Authorization: `Bearer ${token}` },
             });
