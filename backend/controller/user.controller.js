@@ -88,10 +88,10 @@ async function getAllUsers(req, res){
 }
 
 async function getUserProfile(req, res){
-    const { username } = req.params;
+    const { id } = req.params;
 
     try{
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ _id:id });
         if(!user){
             return res.status(400).send({ error: 'User does not exists' });
         }
@@ -113,11 +113,11 @@ async function getUserProfile(req, res){
 }
 
 async function updateUserProfile(req, res){
-    const { username } = req.params;
+    const { id } = req.params;
     const {email, password} = req.body;
 
     try {
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ _id:id });
         if(!user){
             return res.status(404).json({ error: "User not found" });
         }
@@ -136,11 +136,11 @@ async function updateUserProfile(req, res){
 }
 
 async function deleteUserProfile(req, res){
-    const { username } = req.params;
-    const { id } = req.user?.data
+    const { id } = req.params;
+    // const { id } = req.user?.data
     // console.log(id);
     try {
-        const user = await User.findByIdAndDelete({ _id: id, username });
+        const user = await User.findByIdAndDelete({ _id: id });
         if(!user){
             return res.status(404).json({ error: "User not found" });
         }
