@@ -114,26 +114,28 @@ export const deleteIssueById = async (req, res) => {
     }
 };
 
+const STATUS_FLOW = ["open", "in progress", "closed"];
+
 export const toggleIssueStatus = async (req, res) => {
     const { id } = req.params;
-    const { status } = req.body;
 
     try {
-        if (!["open", "in progress", "closed"].includes(status)) {
-            return res.status(400).json({ error: "Invalid status value" });
-        }
-
-        const issue = await Issue.findByIdAndUpdate(
-            id,
-            { status },
-            { new: true }
-        );
-
+        const issue = await Issue.findById(id);
         if (!issue) {
             return res.status(404).json({ error: "Issue not found" });
         }
 
-        res.status(200).json({ message: "Status updated", issue });
+        const currentIndex = STATUS_FLOW.indexOf(issue.status ?? "open");
+        const nextIndex = (currentIndex + 1) % STATUS_FLOW.length;
+        const nextStatus = STATUS_FLOW[nextIndex];
+
+        const updated = await Issue.findByIdAndUpdate(
+            id,
+            { status: nextStatus },
+            { new: true }
+        );
+
+        res.status(200).json({ message: "Status updated", issue: updated });
     } catch (err) {
         res.status(500).json({ error: "Error updating status", details: err.message });
     }
