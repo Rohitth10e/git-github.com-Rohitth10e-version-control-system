@@ -25,8 +25,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-// Express 5 rejects "*" wildcard routes; use a regex to cover all OPTIONS preflight requests.
-app.options(/.*/, cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
