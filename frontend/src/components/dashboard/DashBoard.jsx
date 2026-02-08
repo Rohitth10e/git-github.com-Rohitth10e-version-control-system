@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./dashboard.css";
 import Navbar from "../Navbar.jsx";
 
@@ -66,10 +67,11 @@ export const DashBoard = () => {
                     <h3>Suggested Repositories</h3>
                     {suggestedRepositories.map((repo) => {
                         return (
-                            <div className="repo-list" >
-                                <div key={repo._id} className="repo-card">
+                            <div className="repo-list" key={repo._id}>
+                                <div className="repo-card">
                                     <h4>{repo.name}</h4>
-                                    <h4>{repo.description}</h4>
+                                    <p>{repo.description}</p>
+                                    <Link to={`/repo/${repo._id}/issues`}>View issues</Link>
                                 </div>
                             </div>
                         );
@@ -87,9 +89,10 @@ export const DashBoard = () => {
                     </div>
                     {searchResults && searchResults.map((repo) => {
                         return (
-                            <div key={repo._id}>
+                            <div key={repo._id} className="repo-card">
                                 <h4>{repo.name}</h4>
-                                <h4>{repo.description}</h4>
+                                <p>{repo.description}</p>
+                                <Link to={`/repo/${repo._id}/issues`}>View issues</Link>
                             </div>
                         );
                     })}

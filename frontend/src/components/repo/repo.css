@@ -1,0 +1,191 @@
+.repo-create {
+    max-width: 480px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    color: white;
+}
+
+.repo-create h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.repo-form label {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #c9d1d9;
+}
+
+.repo-form label .required {
+    color: #f85149;
+}
+
+.repo-form input[type="text"] {
+    display: block;
+    width: 100%;
+    margin-top: 0.35rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    background: #0d1117;
+    color: white;
+    font-size: 1rem;
+}
+
+.repo-form input[type="text"]:focus {
+    outline: none;
+    border-color: #58a6ff;
+}
+
+.repo-form .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.repo-form .checkbox-label input {
+    width: auto;
+    margin: 0;
+}
+
+.repo-form .form-error {
+    color: #f85149;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+}
+
+.repo-form button {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #238636;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.repo-form button:hover:not(:disabled) {
+    background: #2ea043;
+}
+
+.repo-form button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Issues page */
+.issues-page {
+    max-width: 720px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    color: white;
+}
+
+.issues-loading {
+    color: #8b949e;
+}
+
+.issues-header {
+    margin-bottom: 1.5rem;
+}
+
+.issues-header h2 {
+    font-size: 1.35rem;
+    margin: 0.5rem 0 0 0;
+}
+
+.back-link {
+    background: none;
+    border: none;
+    color: #58a6ff;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.issues-form {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #30363d;
+}
+
+.issues-form h3,
+.issues-list h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.issues-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.issue-item {
+    background: #1f1f1f;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.issue-main {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.issue-status {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    text-transform: capitalize;
+}
+
+.status-open {
+    background: #238636;
+    color: white;
+}
+
+.status-in-progress {
+    background: #9e6a03;
+    color: white;
+}
+
+.status-closed {
+    background: #6e7681;
+    color: white;
+}
+
+.issue-desc {
+    margin: 0.5rem 0 0 0;
+    font-size: 0.9rem;
+    color: #8b949e;
+}
+
+.issue-toggle {
+    margin-left: auto;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.issue-toggle:hover {
+    background: #30363d;
+}
+
+.issues-empty {
+    color: #8b949e;
+    font-size: 0.95rem;
+}
