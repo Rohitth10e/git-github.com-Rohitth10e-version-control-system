@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../../api.js";
 import "./profile.css";
 import Navbar from "../Navbar";
 import { UnderlineNav } from "@primer/react";
@@ -27,7 +28,7 @@ export const User = () => {
             if (userId) {
                 try {
                     const response = await axios.get(
-                        `${import.meta.env.VITE_API_BASE_URL}/v1/users/profile/${userId}`
+                        `${API_BASE_URL}/v1/users/profile/${userId}`
                     );
                     setUserDetails(response.data.user);
                 } catch (err) {

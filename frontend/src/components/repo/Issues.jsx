@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../Navbar.jsx";
+import { API_BASE_URL } from "../../api.js";
 import "./repo.css";
-
-const API_BASE = "http://localhost:3000/api/v1";
 
 export const Issues = () => {
     const { repoId } = useParams();
@@ -28,10 +27,10 @@ export const Issues = () => {
             setError("");
             try {
                 const [repoRes, issuesRes] = await Promise.all([
-                    fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/repo/${repoId}`, {
+                    fetch(`${API_BASE_URL}/v1/repo/${repoId}`, {
                         headers: token ? { Authorization: `Bearer ${token}` } : {},
                     }),
-                    fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/issue/repo/${repoId}`, {
+                    fetch(`${API_BASE_URL}/v1/issue/repo/${repoId}`, {
                         headers: token ? { Authorization: `Bearer ${token}` } : {},
                     }),
                 ]);
@@ -69,7 +68,7 @@ export const Issues = () => {
         }
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/issue/create`, {
+            const res = await fetch(`${API_BASE_URL}/v1/issue/create`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -102,7 +101,7 @@ export const Issues = () => {
     const handleToggleStatus = async (issueId) => {
         if (!token) return;
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/issue/status/${issueId}`, {
+            const res = await fetch(`${API_BASE_URL}/v1/issue/status/${issueId}`, {
                 method: "PATCH",
                 headers: { Authorization: `Bearer ${token}` },
             });

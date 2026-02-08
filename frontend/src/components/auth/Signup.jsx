@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../../AuthContext.jsx";
+import { API_BASE_URL } from "../../api.js";
 
 import { PageHeader } from "@primer/react";
 import { SkeletonBox, Button } from "@primer/react";
@@ -23,7 +24,7 @@ export const Signup = () => {
         e.preventDefault();
         setLoading(true);
         try{
-            const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/v1/users/register`, {
+            const response = await axios.post(`${API_BASE_URL}/v1/users/register`, {
                 email,
                 password,
                 username,

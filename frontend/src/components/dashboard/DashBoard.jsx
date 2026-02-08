@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./dashboard.css";
 import Navbar from "../Navbar.jsx";
+import { API_BASE_URL } from "../../api.js";
 
 export const DashBoard = () => {
     const [repositories, setRepositories] = useState([]);
@@ -17,7 +18,7 @@ export const DashBoard = () => {
 
             try {
                 const response = await fetch(
-                    `${import.meta.env.VITE_API_BASE_URL}/v1/repo/user/${userId}`,
+                    `${API_BASE_URL}/v1/repo/user/${userId}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -35,7 +36,7 @@ export const DashBoard = () => {
 
         const fetchSuggestedRepositories = async () => {
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/repo/getall`);
+                const response = await fetch(`${API_BASE_URL}/v1/repo/getall`);
                 const data = await response.json();
                 setSuggestedRepositories(data);
                 console.log(suggestedRepositories);

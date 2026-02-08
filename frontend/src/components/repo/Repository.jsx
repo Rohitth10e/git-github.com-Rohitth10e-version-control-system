@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar.jsx";
+import { API_BASE_URL } from "../../api.js";
 import "./repo.css";
-
-const API_BASE = "http://localhost:3000/api/v1";
 
 export const Repository = () => {
     const navigate = useNavigate();
@@ -27,7 +26,7 @@ export const Repository = () => {
         }
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/repo/create`, {
+            const res = await fetch(`${API_BASE_URL}/v1/repo/create`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
