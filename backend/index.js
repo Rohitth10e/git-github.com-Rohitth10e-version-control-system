@@ -18,11 +18,15 @@ dotenv.config();
 export const app = express();
 const MONGO_URI = process.env.MONGO_URI
 
-app.use(cors({
-    origin: true, // allow any origin (avoids Express 5 path-to-regexp '*' issue)
+const corsOptions = {
+    origin: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
-}));
+};
+
+app.use(cors(corsOptions));
+// Express 5 rejects "*" wildcard routes; use a regex to cover all OPTIONS preflight requests.
+app.options(/.*/, cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
