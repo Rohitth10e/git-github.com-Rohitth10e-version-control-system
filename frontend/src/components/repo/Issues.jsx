@@ -28,10 +28,10 @@ export const Issues = () => {
             setError("");
             try {
                 const [repoRes, issuesRes] = await Promise.all([
-                    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/repo/${repoId}`, {
+                    fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/repo/${repoId}`, {
                         headers: token ? { Authorization: `Bearer ${token}` } : {},
                     }),
-                    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/issue/repo/${repoId}`, {
+                    fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/issue/repo/${repoId}`, {
                         headers: token ? { Authorization: `Bearer ${token}` } : {},
                     }),
                 ]);
@@ -69,7 +69,7 @@ export const Issues = () => {
         }
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/issue/create`, {
+            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/issue/create`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

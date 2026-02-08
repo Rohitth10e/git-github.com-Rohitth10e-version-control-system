@@ -2,6 +2,14 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+## Vercel deployment
+
+For the app to work on Vercel, API requests must go through the same origin so the `vercel.json` rewrite can proxy them to the backend. Set this in your Vercel project **Environment Variables**:
+
+- **`VITE_API_BASE_URL`** = `/api`
+
+Do **not** set it to the backend URL (e.g. `http://52.55.185.89:3000`) on Vercel, or the browser will block requests (mixed content when the site is HTTPS and the API is HTTP).
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
