@@ -5,10 +5,11 @@ import { connectTestDb, disconnectTestDb } from "../db-helper.js";
 describe("Issue routes", () => {
     let authToken;
     let testRepoId;
+    let dbAvailable = false;
 
     beforeAll(async () => {
-        const connected = await connectTestDb();
-        if (!connected) return;
+        dbAvailable = await connectTestDb();
+        if (!dbAvailable) return;
 
         const email = `issue-test-${Date.now()}@test.com`;
         const username = `issuetestuser${Date.now()}`;
@@ -39,7 +40,7 @@ describe("Issue routes", () => {
         if (createRepoRes.body.repositoryID) {
             testRepoId = createRepoRes.body.repositoryID;
         }
-    });
+    }, 10000);
 
     afterAll(async () => {
         await disconnectTestDb();
@@ -47,19 +48,20 @@ describe("Issue routes", () => {
 
     describe("POST /api/v1/issue/create", () => {
         it("should return 401 without Authorization", async () => {
+            const repoId = testRepoId || "507f1f77bcf86cd799439011";
             const res = await request(app)
                 .post("/api/v1/issue/create")
                 .set("Content-Type", "application/json")
                 .send({
                     title: "Bug",
                     description: "Fix it",
-                    repository: testRepoId || "507f1f77bcf86cd799439011",
+                    repository: repoId,
                 });
             expect(res.statusCode).toBe(401);
         });
 
         it("should return 400 for invalid repository id", async () => {
-            if (!authToken) return;
+            if (!dbAvailable || !authToken) return;
             const res = await request(app)
                 .post("/api/v1/issue/create")
                 .set("Authorization", `Bearer ${authToken}`)
@@ -73,7 +75,7 @@ describe("Issue routes", () => {
         });
 
         it("should return 201 and create issue when valid", async () => {
-            if (!authToken || !testRepoId) return;
+            if (!dbAvailable || !authToken || !testRepoId) return;
             const res = await request(app)
                 .post("/api/v1/issue/create")
                 .set("Authorization", `Bearer ${authToken}`)
@@ -99,7 +101,7 @@ describe("Issue routes", () => {
         });
 
         it("should return 400 for invalid repo id", async () => {
-            if (!authToken) return;
+            if (!dbAvailable || !authToken) return;
             const res = await request(app)
                 .get("/api/v1/issue/repo/invalid")
                 .set("Authorization", `Bearer ${authToken}`);
@@ -107,7 +109,7 @@ describe("Issue routes", () => {
         });
 
         it("should return 200 and issues array", async () => {
-            if (!authToken || !testRepoId) return;
+            if (!dbAvailable || !authToken || !testRepoId) return;
             const res = await request(app)
                 .get(`/api/v1/issue/repo/${testRepoId}`)
                 .set("Authorization", `Bearer ${authToken}`);
@@ -135,13 +137,13 @@ describe("Issue routes", () => {
         });
 
         it("should return 401 without token", async () => {
-            if (!issueId) return;
+            if (!dbAvailable || !issueId) return;
             const res = await request(app).patch(`/api/v1/issue/status/${issueId}`);
             expect(res.statusCode).toBe(401);
         });
 
         it("should return 200 and updated issue (status toggled)", async () => {
-            if (!authToken || !issueId) return;
+            if (!dbAvailable || !authToken || !issueId) return;
             const res = await request(app)
                 .patch(`/api/v1/issue/status/${issueId}`)
                 .set("Authorization", `Bearer ${authToken}`);

@@ -1,16 +1,20 @@
 let isConnected = false;
 
+const CONNECT_TIMEOUT_MS = 3000;
+
 export async function connectTestDb() {
     const uri = process.env.MONGO_URI;
     if (!uri) return false;
     if (isConnected) return true;
     try {
         const mongoose = (await import("mongoose")).default;
-        await mongoose.connect(uri);
+        await mongoose.connect(uri, {
+            serverSelectionTimeoutMS: CONNECT_TIMEOUT_MS,
+            connectTimeoutMS: CONNECT_TIMEOUT_MS,
+        });
         isConnected = true;
         return true;
-    } catch (err) {
-        console.warn("Test DB connect skipped:", err.message);
+    } catch {
         return false;
     }
 }

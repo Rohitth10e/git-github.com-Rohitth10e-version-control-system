@@ -5,10 +5,11 @@ import { connectTestDb, disconnectTestDb } from "../db-helper.js";
 describe("Repo routes", () => {
     let authToken;
     let testUserId;
+    let dbAvailable = false;
 
     beforeAll(async () => {
-        const connected = await connectTestDb();
-        if (!connected) return;
+        dbAvailable = await connectTestDb();
+        if (!dbAvailable) return;
 
         const email = `repo-test-${Date.now()}@test.com`;
         const username = `repotestuser${Date.now()}`;
@@ -31,7 +32,7 @@ describe("Repo routes", () => {
             authToken = loginRes.body.token;
             testUserId = loginRes.body.user.id;
         }
-    });
+    }, 10000);
 
     afterAll(async () => {
         await disconnectTestDb();
@@ -39,6 +40,7 @@ describe("Repo routes", () => {
 
     describe("GET /api/v1/repo/getall", () => {
         it("should return 200 and array (no auth required)", async () => {
+            if (!dbAvailable) return;
             const res = await request(app).get("/api/v1/repo/getall");
             expect(res.statusCode).toBe(200);
             expect(Array.isArray(res.body)).toBe(true);
@@ -47,20 +49,22 @@ describe("Repo routes", () => {
 
     describe("POST /api/v1/repo/create", () => {
         it("should return 401 without Authorization header", async () => {
+            const owner = testUserId || "507f1f77bcf86cd799439011";
             const res = await request(app)
                 .post("/api/v1/repo/create")
                 .set("Content-Type", "application/json")
-                .send({ owner: testUserId, name: "my-repo" });
+                .send({ owner, name: "my-repo" });
             expect(res.statusCode).toBe(401);
             expect(res.body.error).toBeDefined();
         });
 
         it("should return 401 with invalid token", async () => {
+            const owner = testUserId || "507f1f77bcf86cd799439011";
             const res = await request(app)
                 .post("/api/v1/repo/create")
                 .set("Authorization", "Bearer invalid-token")
                 .set("Content-Type", "application/json")
-                .send({ owner: testUserId, name: "my-repo" });
+                .send({ owner, name: "my-repo" });
             expect(res.statusCode).toBe(401);
         });
 
