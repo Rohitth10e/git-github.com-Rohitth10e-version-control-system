@@ -19,7 +19,7 @@ export const app = express();
 const MONGO_URI = process.env.MONGO_URI
 
 app.use(cors({
-    origin: "*",
+    origin: true, // allow any origin (avoids Express 5 path-to-regexp '*' issue)
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
@@ -71,8 +71,8 @@ function startServer(){
     const server = http.createServer(app)
     const io = new Server(server, {
         cors: {
-            origin: "*",
-            method: ["GET","POST"]
+            origin: true,
+            methods: ["GET", "POST"]
         }
     });
 
@@ -90,8 +90,8 @@ function startServer(){
         console.log("CRUD Ops");
     })
 
-    server.listen(PORT, () => {
-        console.log(`Server is running on port:${PORT}`);
+    server.listen(PORT, "0.0.0.0", () => {
+        console.log(`Server is running on port ${PORT}`);
     })
 }
 
