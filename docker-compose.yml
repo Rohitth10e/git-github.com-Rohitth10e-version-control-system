@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    container_name: vcs-backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+
+  frontend:
+    build: ./frontend
+    container_name: vcs-frontend
+    ports:
+      - "5173:80"
+    environment:
+      - VITE_API_BASE_URL=/api
+
+    depends_on:
+      - backend
